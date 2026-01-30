@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+><meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lua Ink - Tattoo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Roboto:wght@100&amp;display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Tema do plano de Fundo */
+        :root {
+    --preto: 218, 24%, 13%;
+    --branco: 3, 8%, 87%;
+    --escuro: 224, 23%, 25%;
+    --claro: 327, 5%, 68%;
+    --destaque: 325, 26%, 76%;
+}
+
+
+    /*  Primeiros Icones   */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+    /*  Layout da Página */
+body {
+    margin: 0;
+    width: 100vw;
+    max-width: 100%;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    font-size: 48px;
+    color: hsl(var(--claro));
+    background-color: hsl(var(--preto));
+}
+
+a, a:visited {
+    color: hsl(var(--destaque));
+    text-decoration: none;
+}
+
+main {
+    width: 100vw;
+    max-width: 100%;
+}
+
+
+section{
+    position:relative;
+    max-width: 100svw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrap{
+    display: flex;
+    max-width: 1200px;
+    width: 98svw;
+    margin-inline: auto;
+    padding-inline: min(4svw, 24px);
+    padding-block: 50px;
+    background-color: hsl(var(--preto));
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 32px;   
+    }
+    .wrap {
+        flex-direction: column;
+    }
+}
+
+#heroBG {
+    position: absolute;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+#heroBG>img {
+    min-width: 100vw;
+    min-height: 110vh;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#heroWrap {
+    position: relative;
+    height: 100svh;
+    padding-inline: 0;
+    background:none ;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#luaink {
+    width: auto;
+    max-height: 60svh;
+    max-width: 80svw;
+}
+
+
+    /* Caixas  */ 
+#heroCTA {
+    width: 100%;
+}
+
+.cta {
+    display: table-cell;
+    width: 98svw;
+    padding-block: 20px;
+    text-decoration: none;
+    font-size: 1.5em;
+    color: hsl(var(--destaque));
+    transition: color 250ms, background 250ms, box-shadow 250ms;
+}
+
+.cta:hover{
+    box-shadow: inset 0 0 0 2px hsl(var(--destaque));
+}
+
+#ctaTrampos {background: hsl(var(--escuro));color: hsl(var(--claro));}
+#ctaContato {background: hsl(var(--claro));color: hsl(var(--escuro));}
+#ctaTrampos:hover {background: hsl(var(--branco));color: hsl(var(--destaque));}
+#ctaContato:hover {background: hsl(var(--preto));color: hsl(var(--destaque));}
+
+@media (max-width: 480px) {
+    .cta {
+        display: block;
+    }
+}
+
+#heroSwipe {
+    position: absolute;
+    bottom: 0px;
+}
+
+#sobreWrap {
+    align-items: center;
+}
+
+#sobreWrap>div{
+    width: 50%;
+}
+
+#sobreRetrato>img {
+    width: 130%;
+}
+
+#sobreInfo {
+    height: 100%;
+    padding: 20px;
+    background-color: hsla(var(--escuro) , 0.85);
+    border: 1px solid hsl(var(--claro));
+    text-align: left;
+    box-shadow: 10px 10px 0 hsl(var(--claro));
+}
+
+#sobreTitulo {
+    font-size: 2.5em;
+}
+#sobreTXT {
+    padding-left: 40px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-size: 0.6em;
+}
+
+@media (max-width: 480px) {
+    #sobreWrap {
+        display: block;
+        align-items: unset;
+    }
+    
+    #sobreWrap>div{
+        width: 90%;
+    }
+
+    #sobreRetrato {
+        height: 40svh;
+    }
+
+    #sobreRetrato>img {
+        position: relative;
+        top: 0px;
+        width: 100%;
+        aspect-ratio: 1/1.3;
+    }
+
+    #sobreInfo{
+        position: relative;
+        float: right;
+    }
+
+}
+
+    /* Caixas de Trampo */
+
+#tramposWrap {
+    flex-direction: column;
+}
+
+#tramposTOP, #tramposGaleria{
+    margin-bottom: 50px;
+}
+
+#tramposTOP h3{
+    font-size: 3em;
+}
+
+#trampos p{
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+}
+
+#tramposGaleria {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+#tramposGaleria>a {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    text-decoration: none;
+    color: hsl(var(--destaque));
+}
+#tramposGaleria>a:hover .trampoAbre {
+    transition: opacity 250ms;
+    opacity: 1;
+}
+
+.trampoAbre {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: -100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: "Roboto", sans-serif;
+    background-color: hsla(var(--escuro) , 0.8);
+    border: 4px solid hsl(var(--destaque));
+    opacity: 0.0;
+}
+
+.trampoVe {
+    font-size: 1.5em;
+}
+
+
+
+.instaICO {
+    height: 40%;
+}
+
+.trampoCurte {
+    font-size: 0.75em;
+}
+
+.trampoFoto {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+#tramposFIM h3{
+    font-size: 2em;
+}
+
+#tramposFIM div>*{
+    display: inline-block;
+}
+
+#tramposFIM div{
+    display: inline-flex;
+}
+
+#tramposFIM p{
+    text-align: right;
+}
+
+#tramposFIM a{
+    margin-left: 40px;
+}
+
+#tramposFIM img{
+    position: relative;
+    height: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 480px) {
+    #tramposFIM div {
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tramposFIM a {
+        display: flex;
+        width: 30%;
+    }
+
+    #tramposFIM img {
+        width: 100%;
+        height: auto;
+        top: unset;
+        transform: unset;
+    }    
+    #tramposFIM p {
+        font-size: 0.6em;
+    }
+}
+
+
+/* Caixas do E-COMMERCE */
+#catalogo {
+    background-color: hsl(var(--escuro));
+    padding: 50px 0;
+}
+
+#catalogoWrap {
+    flex-direction: column;
+}
+
+#catalogoTitulo {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: hsl(var(--destaque));
+}
+
+#catalogoSubtitulo {
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+    margin-bottom: 40px;
+}
+
+.categoria {
+    margin-bottom: 50px;
+}
+
+.categoriaTitulo {
+    font-size: 2em;
+    color: hsl(var(--claro));
+    margin-bottom: 20px;
+    border-bottom: 2px solid hsl(var(--destaque));
+    padding-bottom: 10px;
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.produto-card {
+    background-color: hsl(var(--preto));
+    border: 2px solid hsl(var(--claro));
+    padding: 25px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.produto-card:hover {
+    border-color: hsl(var(--destaque));
+    box-shadow: 0 0 20px hsla(var(--destaque), 0.3);
+    transform: translateY(-5px);
+}
+
+.produto-nome {
+    font-size: 1.5em;
+    color: hsl(var(--destaque));
+    margin-bottom: 15px;
+}
+
+.produto-descricao {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    color: hsl(var(--claro));
+    margin-bottom: 15px;
+}
+
+.produto-preco {
+    font-size: 1.8em;
+    color: hsl(var(--branco));
+    margin: 20px 0;
+}
+
+.btn-comprar {
+    background-color: hsl(var(--destaque));
+    color: hsl(var(--preto));
+    border: none;
+    padding: 15px 30px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-comprar:hover {
+    background-color: hsl(var(--branco));
+    box-shadow: 0 0 15px hsla(var(--destaque), 0.5);
+}
+
+/* Botão flutuante do Carrinho  */
+
+#btnCarrinhoFlutuante {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    background-color: hsl(var(--destaque));
+    border: 3px solid hsl(var(--branco));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+#btnCarrinhoFlutuante::before {
+    content: '🛒';
+    font-size: 30px;}
+
+#carrinhoQtdBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.3em;
+    font-weight: bold;
+    border: 2px solid white;}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background-color: hsl(var(--preto));
+    margin: 5% auto;
+    padding: 40px;
+    border: 2px solid hsl(var(--destaque));
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.close {
+    color: hsl(var(--destaque));
+    float: right;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 0.8;
+}
+
+.close:hover {
+    color: hsl(var(--branco));
+}
+
+#listaItensCarrinho {
+    margin: 30px 0;
+}
+
+.item-carrinho {
+    background-color: hsl(var(--escuro));
+    border: 1px solid hsl(var(--claro));
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.item-info {
+    flex: 1;
+    text-align: left;
+    min-width: 200px;
+}
+
+
+/* Caixa de Checkout */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.item-nome {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.8em;
+    color: hsl(var(--destaque));
+    margin-bottom: 5px;
+}
+
+.item-preco {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    color: hsl(var(--claro));
+}
+
+.item-controles {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.btn-qtd {
+    background-color: hsl(var(--claro));
+    color: hsl(var(--preto));
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 0.6em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-qtd:hover {
+    background-color: hsl(var(--destaque));
+    transform: scale(1.1);
+}
+
+.item-quantidade {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    min-width: 40px;
+    text-align: center;
+}
+
+
+.btn-remover {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.4em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-remover:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+.carrinho-vazio {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    color: hsl(var(--claro));
+    padding: 50px;
+    text-align: center;
+}
+
+.resumo-carrinho {
+    background-color: hsl(var(--escuro));
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 25px;
+    border: 2px solid hsl(var(--destaque));
+}
+
+.resumo-carrinho h3 {
+    font-size: 1.2em;
+    color: hsl(var(--destaque));
+    margin-bottom: 15px;
+}
+
+.total-valor {
+    font-size: 1.5em;
+    color: hsl(var(--branco));
+    margin: 15px 0;
+}
+
+.btn-finalizar-carrinho {
+    background-color: hsl(var(--destaque));
+    color: hsl(var(--preto));
+    border: none;
+    padding: 18px 40px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.3em;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.btn-finalizar-carrinho:hover {
+    background-color: hsl(var(--branco));
+    box-shadow: 0 0 20px hsla(var(--destaque), 0.6);
+}
+
+.btn-finalizar-carrinho:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.btn-limpar-carrinho {
+    background-color: transparent;
+    color: hsl(var(--claro));
+    border: 1px solid hsl(var(--claro));
+    padding: 12px 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.4em;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-limpar-carrinho:hover {
+    background-color: hsl(var(--claro));
+    color: hsl(var(--preto));
+}
+
+.modal-content {
+    background-color: hsl(var(--preto));
+    margin: 5% auto;
+    padding: 40px;
+    border: 2px solid hsl(var(--destaque));
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    color: hsl(var(--destaque));
+    float: right;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 0.8;
+}
+
+.close:hover {
+    color: hsl(var(--branco));
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    color: hsl(var(--claro));
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.4em;
+    background-color: hsl(var(--escuro));
+    border: 1px solid hsl(var(--claro));
+    color: hsl(var(--branco));
+    border-radius: 5px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: hsl(var(--destaque));
+}
+
+.resumo-pedido {
+    background-color: hsl(var(--escuro));
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.resumo-pedido h3 {
+    font-size: 1.5em;
+    color: hsl(var(--destaque));
+    margin-bottom: 15px;
+}
+
+.resumo-item {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+    color: hsl(var(--claro));
+    margin-bottom: 8px;
+}
+
+.btn-finalizar {
+    background-color: hsl(var(--destaque));
+    color: hsl(var(--preto));
+    border: none;
+    padding: 18px 40px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.3em;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.btn-finalizar:hover {
+    background-color: hsl(var(--branco));
+    box-shadow: 0 0 20px hsla(var(--destaque), 0.6);
+}
+
+.btn-finalizar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mensagem-sucesso, .mensagem-erro {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.5em;
+}
+
+.mensagem-sucesso {
+    background-color: #25d366;
+    color: hsl(var(--preto));
+}
+
+.mensagem-erro {
+    background-color: #ff4444;
+    color: white;
+}
+
+@media (max-width: 480px) {
+    .produtos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        margin: 10% auto;
+    }
+}
+
+   #btnCarrinhoFlutuante {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .item-carrinho {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .item-controles {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /*   Caixa de contato Whatsapp   */
+#zap {
+    background-image: url(images/zap_bg.jpg);
+    background-size: cover;
+    background-position-y: center;
+    padding-block: 50px;
+    color: hsl(var(--escuro))
+}
+#zapWrap {
+    padding-inline: min(4svw, 24px);
+    padding-block: 50px;
+    margin: auto;
+    border-radius: 0px 40px 40px 40px;
+    background-color: #25d36680 ;
+}
+
+#zapWrap::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: -30px;
+    border: 0 solid transparent;
+    border-width: 0px 30px 30px 0px;
+    border-right-color: #25d36680;
+}
+
+
+#zapWrap>div {
+    margin-inline: auto;
+    text-align: right;
+}
+
+#zapChamada {
+    font-size: 2.2em;
+}
+
+#zapBotao {
+    padding-inline: 20px;
+    background: hsla(var(--escuro),0.75);
+    border-radius: 50px;
+    font-family: "Roboto", sans-serif;
+    color: hsl(var(--claro));
+    transition: color 250ms, background 250ms, box-shadow 250ms;
+}
+
+#zapBotao:hover{
+    color: hsl(var(--destaque));
+    background: hsla(var(--escuro),1);
+    box-shadow: inset 0 0 0 2px hsl(var(--destaque));
+
+}
+
+#zapBotao img{
+    position: relative;
+    height: 75px;
+    transform: translateY(30%);
+    margin: 0 10px;
+}
+
+#zapSubTitulo {
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+}
+
+
+    /*   Localização do Studio   */
+#localWrap>div{
+    width: 50%;
+    aspect-ratio: 1/0.8;
+    border: 4px solid hsl(var(--claro));
+}
+
+#localTrampo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 50px 0;
+}
+
+#localTXT, #localAtual {
+    font-size: 1.2em;
+}
+.localPrev {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.75em;
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+#localEndereco {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.75em;
+}
+
+#localMapa a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    color: hsl(var(--destaque));
+    background-image: url(images/mapa.jpg);
+    background-size: cover;
+}
+
+#localMapa a div {
+    display: block;
+    position: absolute;
+    top: calc(50% + 30px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 50px;
+    background-color: hsl(var(--escuro));
+    border-radius: 40px;
+}
+
+#localMapa a div::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0 solid transparent;
+    border-width: 0px 30px 30px 30px;
+    border-bottom-color: hsl(var(--escuro));
+}
+
+#localMapa a div>* {
+    display: block;
+}
+
+#localMapa a span {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.75em;
+}
+
+
+@media (max-width: 480px) {
+    #localWrap>div{
+        width: 100%;
+    }
+    
+    #localMapa a {
+        background-position-y: -50px;
+    }
+    
+    #localMapa a div {
+        top: calc(50% + -15px);
+    }
+
+    #localMapa a span {
+        font-size: 0.5em;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div id="btnCarrinhoFlutuante" onclick="abrirCarrinho()">
+    <span id="carrinhoQtdBadge">0</span>
+    </div>
+    <main>
+        <!-- Plano de fundo inicial da página -->
+        <section id="hero" class="animate">
+            <div id="heroBG"><img src="images/background.jpg"></div>
+            <div id="heroWrap" class="wrap">
+                &nbsp;
+                <img src="images/luaink.png" alt="Logo - Lua Ink" id="luaink">
+                <div id="heroCTA">
+                    <a href="#trampos" target="_self" class="cta heroEnter" id="ctaTrampos">Trampos</a>
+                    <a href="#zap" target="_self" class="cta heroEnter" id="ctaContato">Contato</a>
+                </div>
+                <div id="heroSwipe" class="heroEnter">
+                    <div id="heroSwipeBG">
+                        <div id="heroSwipeFinger">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="sobre">
+            <div id="sobreWrap" class="wrap">
+                <div id="sobreRetrato"><img src="images/lua.jpg" alt="Foto de Lua - Tatuadora"></div>
+                <div id="sobreInfo">
+                    <h3 id="sobreTitulo">Eu, Lua.</h3>
+                    <p id="sobreTXT">Tatuadora, especializada nos estilos <b>BLACKWORK</b> e <u>FINE LINE</u></p>
+                </div>
+            </div>
+        </section>
+        <section id="trampos">
+            <div id="tramposWrap" class="wrap">
+                <div id="tramposTOP">
+                    <h3>TRAMPOS</h3>
+                    <p>Confira aqui meus últimos<br />trampos postados no insta!!!</p>
+                </div>
+                <div id="tramposGaleria">
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_01">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_01.jpg');" id="foto_01">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_02">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_02.jpg');" id="foto_02">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_03">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_03.jpg');" id="foto_03">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_04">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_04.jpg');" id="foto_04">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_05">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_01.jpg');" id="foto_05">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_06">
+                        <div class="trampoFoto" style="background-image: url('images/insta/INSTAFOTO_02-2.jpg');" id="foto_06">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_07">
+                        <div class="trampoFoto" style="background-image: url('images/insta/INSTAFOTO_03-2.jpg');" id="foto_07">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_08">
+                        <div class="trampoFoto" style="background-image: url('images/insta/INSTAFOTO_04-2.jpg');" id="foto_08">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/luaink_/" target="_blank" id="trampo_09">
+                        <div class="trampoFoto" style="background-image: url('images/insta/instaFoto_01.jpg');" id="foto_09">&nbsp;</div>
+                        <div class="trampoAbre">
+                            <span class="trampoVe">Veja lá!</span>
+                            <img src="images/insta_ico.png" class="instaICO">
+                            <span class="trampoCurte">Curte<br />e comenta também!</span>
+                        </div>
+                    </a>
+                </div>
+            
+
+                <div id="tramposFIM">
+                    <h3>Curtiu?</h3>
+                    <div>
+                        <p>
+                            Então segue lá no Insta,<br />
+                            pra fortalecer o rolê!<br />
+                            @@@
+                        </p>
+                        <a href="https://www.instagram.com/luaink_/" target="_blank"><img src="images/insta_ico.png"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--  Seção do Catalogo para o E-Commerce  -->
+         <section id="catalogo">
+            <div id="catalogoWrap" class="wrap">
+                <h2 id="catalogoTitulo">AGENDE SUA TATTOO</h2>
+                <p id="catalogoSubtitulo">Escolha o modelo que mais combina com você!</p>
+
+       <section id="catalogo">
+            <div id="catalogoWrap" class="wrap">
+                <h2 id="catalogoTitulo">AGENDE SUA TATTOO</h2>
+                <p id="catalogoSubtitulo">Escolha o modelo que mais combina com você!</p>
+
+                <div class="categoria">
+                    <h3 class="categoriaTitulo">Rodízios de Tatuagem</h3>
+                    <div class="produtos-grid">
+                        <div class="produto-card">
+                            <h4 class="produto-nome">Rodízio 2h</h4>
+                            <p class="produto-descricao">Perfeito para tatuagens pequenas e detalhadas</p>
+                            <p class="produto-preco">R$ 250,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Rodízio 2 horas', 25000)">Adicionar ao Carrinho</button>
+                        </div>
+                        <div class="produto-card">
+                            <h4 class="produto-nome">Rodízio 4h</h4>
+                            <p class="produto-descricao">Ideal para tatuagens médias com mais detalhes</p>
+                            <p class="produto-preco">R$ 500,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Rodízio 4 horas', 50000)">Adicionar ao Carrinho</button>
+                        </div>
+                        <div class="produto-card">
+                            <h4 class="produto-nome">Rodízio 8h</h4>
+                            <p class="produto-descricao">Para grandes projetos e trabalhos complexos</p>
+                            <p class="produto-preco">R$ 800,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Rodízio 8 horas', 80000)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="categoria">
+                    <h3 class="categoriaTitulo">Tatuagens por Tamanho</h3>
+                    <div class="produtos-grid">
+                        <div class="produto-card">
+                            <h4 class="produto-nome">12 cm</h4>
+                            <p class="produto-descricao">Tatuagens pequenas e delicadas</p>
+                            <p class="produto-preco">R$ 250,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Tatuagem 12cm', 25000)">Adicionar ao Carrinho</button>
+                        </div>
+                        <div class="produto-card">
+                            <h4 class="produto-nome">20 cm</h4>
+                            <p class="produto-descricao">Tatuagens de tamanho médio</p>
+                            <p class="produto-preco">R$ 600,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Tatuagem 20cm', 60000)">Adicionar ao Carrinho</button>
+                        </div>
+                        <div class="produto-card">
+                            <h4 class="produto-nome">Fechamento de Braço</h4>
+                            <p class="produto-descricao">Fechamento completo do braço</p>
+                            <p class="produto-preco">R$ 1.000,00</p>
+                            <button class="btn-comprar" onclick="adicionarAoCarrinho('Fechamento de Braço', 100000)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+          <!-- Caixa para o Carrinho -->
+
+        <div id="carrinhoModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharCarrinho()">&times;</span>
+                <h2>Meu Carrinho</h2>
+                
+                <!-- Lista dos itens do carrinho -->
+                <div id="listaItensCarrinho"></div>
+                
+                <!-- Resumo com valor total -->
+                <div id="resumoCarrinho" class="resumo-carrinho" style="display: none;">
+                    <h3>Resumo do Pedido</h3>
+                    <p class="total-valor">Total: R$ <span id="valorTotal">0,00</span></p>
+                    <button class="btn-finalizar-carrinho" onclick="irParaCheckout()">Finalizar Compra</button>
+                    <button class="btn-limpar-carrinho" onclick="limparCarrinho()">Limpar Carrinho</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Caixa de Checkout -->
+        <div id="checkoutModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharCheckout()">&times;</span>
+                <h2>Finalizar Agendamento</h2>
+                
+                <div id="mensagens"></div>
+
+        <!-- Informações do Client para compra-->
+                <div class="resumo-pedido">
+                    <h3>Resumo do Pedido</h3>
+                    <div id="resumoItensCheckout"></div>
+                    <p class="resumo-item"><strong>Total:</strong> R$ <span id="resumoValorCheckout">0,00</span></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome Completo:</label>
+                    <input type="text" id="nomeCliente" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="emailCliente" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefone:</label>
+                    <input type="tel" id="telefoneCliente" placeholder="(15) 99800-2049" required>
+                </div>
+
+                <div class="form-group">
+                    <label>CPF:</label>
+                    <input type="text" id="cpfCliente" placeholder="000.000.000-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Número do Cartão:</label>
+                    <input type="text" id="numeroCartao" placeholder="4111 1111 1111 1111" value="4111111111111111" required>
+                </div>
+
+                <div class="form-group">
+                    <label>CVV:</label>
+                    <input type="text" id="cvvCartao" placeholder="123" value="123" maxlength="3" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Validade (MM/AA):</label>
+                    <input type="text" id="validadeCartao" placeholder="12/25" value="12/25" required>
+                </div>
+
+                <button class="btn-finalizar" id="btnFinalizar" onclick="finalizarPagamento()">
+                    Confirmar Agendamento
+                </button>
+            </div>
+        </div>
+
+
+
+        <section id="zap">
+            <div id="zapWrap" class="wrap">
+                <div>
+                    <span id="zapChamada">E Aí? Vamos Rabiscar?</span><br />
+                    <span id="zapSubTitulo">Para orçamentos, me chama no ZAP</span><br />
+                    <a href="https://api.whatsapp.com/send?1=pt_BR&amp;phone=5515998002049" target="_blank" id="zapBotao">Clica aqui<img src="images/zap_icon.png" alt="">!</a>
+                </div>
+            </div>
+        </section>
+        <section id="local">
+            <div id="localWrap" class="wrap">
+                <div id="localTrampo">
+                    <div>
+                        <h4 id="localTXT">Me encontre no estúdio</h4>
+                    </div>
+                    <div>
+                        <h2 id="localAtual">Lua Ink - Sorocaba/SP</h2>
+                        <h4 id="localEndereco">
+                            Rua Aparecida, 60 <br />
+                            Jardim Santa Rosália<br />
+                            Sorocaba - SP
+                        </h4>
+                    </div>
+                </div>
+                <div id="localMapa">
+                    <a href="https://maps.app.goo.gl/7rwspKA5WHbyUgLh9" target="_blank">
+                        <div>
+                            <h3>Bem Aqui</h3>
+                            <span>(clica&nbsp;pra&nbsp;abrir&nbsp;no&nbsp;maps)</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+       
+    </main>
+<script>
+// CRUD
+
+// Array que guarda todos os itens adicionados ao carrinho
+let carrinho = [];
+
+// Função para gerar ID único para cada item
+function gerarIdUnico() {
+    return Date.now() + Math.random().toString(36).substr(2, 9);
+}
+
+// CREATE - Para adicionar itens ao carrinho
+function adicionarAoCarrinho(nome, valorCentavos) {
+    // Verifica se o produto já existe no carrinho
+    const itemExistente = carrinho.find(item => item.nome === nome);
+    
+    //Condição para caso o item já esteja no carrinho
+    if (itemExistente) {
+        itemExistente.quantidade++;
+    } else {
+        const novoItem = {
+            id: gerarIdUnico(),
+            nome: nome,
+            valor: valorCentavos,
+            quantidade: 1
+        };
+        carrinho.push(novoItem);
+    }
+    
+    // Atualiza a interface
+    atualizarBadgeCarrinho();
+    mostrarNotificacao(`${nome} adicionado ao carrinho!`);
+}
+
+// READ, Para ler os itens do Carrinho
+function exibirCarrinho() {
+    const lista = document.getElementById('listaItensCarrinho');
+    const resumo = document.getElementById('resumoCarrinho');
+    
+    // Se o carrinho está vazio
+    if (carrinho.length === 0) {
+        lista.innerHTML = '<div class="carrinho-vazio">Seu carrinho está vazio 😢<br>Adicione alguns serviços!</div>';
+        resumo.style.display = 'none';
+        return;
+    }
+    
+    // Limpa a lista atual
+    lista.innerHTML = '';
+    
+    // Ler itens do carrinho
+    carrinho.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item-carrinho';
+        itemDiv.innerHTML = `
+            <div class="item-info">
+                <div class="item-nome">${item.nome}</div>
+                <div class="item-preco">R$ ${(item.valor / 100).toFixed(2)} cada</div>
+            </div>
+            <div class="item-controles">
+                <button class="btn-qtd" onclick="diminuirQuantidade('${item.id}')">−</button>
+                <span class="item-quantidade">Qtd: ${item.quantidade}</span>
+                <button class="btn-qtd" onclick="aumentarQuantidade('${item.id}')">+</button>
+            </div>
+            <button class="btn-remover" onclick="removerItem('${item.id}')">Remover</button>
+        `;
+        lista.appendChild(itemDiv);
+    });
+    
+    // Calcula e exibe o total
+    const total = calcularTotal();
+    document.getElementById('valorTotal').textContent = (total / 100).toFixed(2);
+    resumo.style.display = 'block';
+}
+
+// UPDATE - Atualiza a quantidade de itens no Carrinho
+
+// Função para aumentar a quantidade de itens no carrinho
+function aumentarQuantidade(id) {
+    const item = carrinho.find(i => i.id === id);
+    if (item) {
+        item.quantidade++;
+        exibirCarrinho();
+        atualizarBadgeCarrinho();
+    }
+}
+
+// Função para diminuir a quantidade de itens no carrinho
+function diminuirQuantidade(id) {
+    const item = carrinho.find(i => i.id === id);
+    if (item) {
+        if (item.quantidade > 1) {
+            item.quantidade--;
+        } else {
+            removerItem(id);
+            return;
+        }
+        exibirCarrinho();
+        atualizarBadgeCarrinho();
+    }
+}
+
+// DELETE - Para Remover item do Carrinho
+function removerItem(id) {
+    // Remove o item da lista/Array
+    carrinho = carrinho.filter(item => item.id !== id);
+    
+    // Atualiza a interface
+    exibirCarrinho();
+    atualizarBadgeCarrinho();
+    
+    mostrarNotificacao('Item removido do carrinho');
+}
+
+// Função para limpar todo o carrinho
+function limparCarrinho() {
+    if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
+        carrinho = [];
+        exibirCarrinho();
+        atualizarBadgeCarrinho();
+        mostrarNotificacao('Carrinho limpo!');
+    }
+}
+
+// Funcionalidades da caixa do Carrinho
+
+// Calcula o valor total do carrinho
+function calcularTotal() {
+    return carrinho.reduce((total, item) => {
+        return total + (item.valor * item.quantidade);
+    }, 0);
+}
+
+// Calcula quantidade total de itens
+function calcularQuantidadeTotal() {
+    return carrinho.reduce((total, item) => {
+        return total + item.quantidade;
+    }, 0);
+}
+
+// Atualiza o badge de quantidade no botão flutuante
+function atualizarBadgeCarrinho() {
+    const badge = document.getElementById('carrinhoQtdBadge');
+    const quantidade = calcularQuantidadeTotal();
+    badge.textContent = quantidade;
+    badge.style.display = quantidade > 0 ? 'flex' : 'none';
+}
+
+// Mostra notificação temporária
+function mostrarNotificacao(mensagem) {
+    // Cria elemento de notificação
+    const notif = document.createElement('div');
+    notif.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: hsl(var(--destaque));
+        color: hsl(var(--preto));
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        z-index: 10000;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        animation: slideIn 0.3s ease;
+    `;
+    notif.textContent = mensagem;
+    document.body.appendChild(notif);
+    
+    // Remove após 2 segundos
+    setTimeout(() => {
+        notif.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notif.remove(), 300);
+    }, 2000);
+}
+
+// Função para interface
+
+// Função para Abrir a caixa do carrinho
+function abrirCarrinho() {
+    exibirCarrinho();
+    document.getElementById('carrinhoModal').style.display = 'block';
+}
+
+// Função para Fechar a caixa do carrinho
+function fecharCarrinho() {
+    document.getElementById('carrinhoModal').style.display = 'none';
+}
+
+// Vai do carrinho para o checkout
+function irParaCheckout() {
+    if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+    }
+    
+    // Fecha o carrinho e abre o checkout
+    fecharCarrinho();
+    
+    // Preenche o resumo do checkout com os itens do carrinho
+    const resumoDiv = document.getElementById('resumoItensCheckout');
+    resumoDiv.innerHTML = '';
+    
+    carrinho.forEach(item => {
+        const p = document.createElement('p');
+        p.className = 'resumo-item';
+        p.innerHTML = `<strong>${item.nome}</strong> - Qtd: ${item.quantidade} - R$ ${((item.valor * item.quantidade) / 100).toFixed(2)}`;
+        resumoDiv.appendChild(p);
+    });
+    
+    const total = calcularTotal();
+    document.getElementById('resumoValorCheckout').textContent = (total / 100).toFixed(2);
+    
+    document.getElementById('checkoutModal').style.display = 'block';
+    document.getElementById('mensagens').innerHTML = '';
+}
+
+// Funções de Checkout com integração a API PAGAR.ME
+
+// Função para fechar o modal de checkout
+function fecharCheckout() {
+    document.getElementById('checkoutModal').style.display = 'none';
+    limparFormulario();
+}
+
+// Função para limpar o formulário
+function limparFormulario() {
+    document.getElementById('nomeCliente').value = '';
+    document.getElementById('emailCliente').value = '';
+    document.getElementById('telefoneCliente').value = '';
+    document.getElementById('cpfCliente').value = '';
+    document.getElementById('numeroCartao').value = '';
+    document.getElementById('cvvCartao').value = '';
+    document.getElementById('validadeCartao').value = '';
+    document.getElementById('mensagens').innerHTML = '';
+}
+
+// Função para mostrar mensagens no checkout
+function mostrarMensagem(texto, tipo) {
+    const divMensagens = document.getElementById('mensagens');
+    const classe = tipo === 'sucesso' ? 'mensagem-sucesso' : 'mensagem-erro';
+    divMensagens.innerHTML = `<div class="${classe}">${texto}</div>`;
+}
+
+// Função de pagamento para o Index
+async function enviarPagamentoParaAPI(dadosPagamento) {
+    try {
+        const response = await fetch('http://localhost:3000/criar-pagamento', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(dadosPagamento)
+        });
+
+        // Se a API respondeu erro 
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.erro || erro.message || 'Erro ao processar pagamento');
+        }
+
+        // Retorna resposta da API 
+        return await response.json();
+        
+    } catch (error) {
+        // Tratamento de erros de rede
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error('Não foi possível conectar ao servidor. Verifique sua conexão.');
+        }
+        throw error;
+    }
+}
+
+// FUnção para finalizar o Pagamento
+async function finalizarPagamento() {
+    const btnFinalizar = document.getElementById('btnFinalizar');
+    
+    // Validação básica dos campos
+    const nome = document.getElementById('nomeCliente').value.trim();
+    const email = document.getElementById('emailCliente').value.trim();
+    const telefone = document.getElementById('telefoneCliente').value;
+    const cpf = document.getElementById('cpfCliente').value;
+    const numeroCartao = document.getElementById('numeroCartao').value;
+    const cvv = document.getElementById('cvvCartao').value;
+    const validade = document.getElementById('validadeCartao').value;
+    
+    // Validação de campos obrigatórios
+    if (!nome || !email || !telefone || !cpf || !numeroCartao || !cvv || !validade) {
+        mostrarMensagem('Por favor, preencha todos os campos!', 'erro');
+        return;
+    }
+    
+    // Validação de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        mostrarMensagem('Por favor, insira um email válido!', 'erro');
+        return;
+    }
+    
+    // Validação de CPF (tamanho mínimo)
+    if (cpf.replace(/\D/g, '').length !== 11) {
+        mostrarMensagem('CPF inválido! Digite os 11 dígitos.', 'erro');
+        return;
+    }
+    
+    // Validação de cartão (tamanho mínimo)
+    if (numeroCartao.replace(/\s/g, '').length < 13) {
+        mostrarMensagem('Número de cartão inválido!', 'erro');
+        return;
+    }
+    
+    // Validação de CVV
+    if (cvv.length < 3) {
+        mostrarMensagem('CVV inválido!', 'erro');
+        return;
+    }
+    
+    // Desabilita botão durante processamento
+    btnFinalizar.disabled = true;
+    btnFinalizar.textContent = 'Processando pagamento...';
+    
+    try {
+        // Monta os dados que serão enviados para o BACK-END
+        const payload = {
+            produto: 'Serviços de Tatuagem',
+            valor: calcularTotal(),
+            cliente: {
+                nome,
+                email,
+                telefone: telefone.replace(/\D/g, ''), // Remove formatação
+                cpf: cpf.replace(/\D/g, '') // Remove formatação
+            },
+            cartao: {
+                numero: numeroCartao.replace(/\s/g, ''), // Remove espaços
+                cvv,
+                validade: validade.replace('/', '') // Remove barra
+            },
+            itens: carrinho.map(item => ({
+                nome: item.nome,
+                quantidade: item.quantidade,
+                valor: item.valor
+            }))
+        };
+
+        // Chamada a API
+        const resultado = await enviarPagamentoParaAPI(payload);
+
+        // Verificação Bem sucedida 
+        const itensTexto = carrinho.map(item => 
+            `${item.nome} (${item.quantidade}x)`
+        ).join(', ');
+        
+        mostrarMensagem(
+            `Pagamento aprovado com sucesso!<br><br>
+            <strong>Código do pedido:</strong> ${resultado.order_id || 'N/A'}<br>
+            <strong>Status:</strong> ${resultado.status || 'Aprovado'}<br>
+            <strong>Itens:</strong> ${itensTexto}<br><br>
+            Um e-mail de confirmação será enviado para <strong>${email}</strong>.`,
+            'sucesso'
+        );
+
+        // Limpa carrinho após sucesso
+        setTimeout(() => {
+            carrinho = [];
+            atualizarBadgeCarrinho();
+            fecharCheckout();
+        }, 5000);
+
+    } catch (error) {
+        // Erro Retornado pela API
+        console.error('Erro no pagamento:', error);
+        mostrarMensagem(
+            ` ${error.message}`,
+            'erro'
+        );
+    } finally {
+        // Reabilita botão
+        btnFinalizar.disabled = false;
+        btnFinalizar.textContent = 'Confirmar Agendamento';
+    }
+}
+
+// Fechar Caixa ao clicar fora dela
+window.onclick = function(event) {
+    const carrinhoModal = document.getElementById('carrinhoModal');
+    const checkoutModal = document.getElementById('checkoutModal');
+    
+    if (event.target == carrinhoModal) {
+        fecharCarrinho();
+    }
+    if (event.target == checkoutModal) {
+        fecharCheckout();
+    }
+}
+
+// Máscaras simples para os campos
+
+// Mascara para o telefone
+document.getElementById('telefoneCliente')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length > 6) {
+        value = `(${value.slice(0,2)}) ${value.slice(2,7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+        value = `(${value.slice(0,2)}) ${value.slice(2)}`;
+    }
+    e.target.value = value;
+});
+
+// Mascara para o CPF
+document.getElementById('cpfCliente')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length > 9) {
+        value = `${value.slice(0,3)}.${value.slice(3,6)}.${value.slice(6,9)}-${value.slice(9)}`;
+    } else if (value.length > 6) {
+        value = `${value.slice(0,3)}.${value.slice(3,6)}.${value.slice(6)}`;
+    } else if (value.length > 3) {
+        value = `${value.slice(0,3)}.${value.slice(3)}`;
+    }
+    e.target.value = value;
+});
+
+// Mascara para o número do Cartão
+document.getElementById('numeroCartao')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 16) value = value.slice(0, 16);
+    value = value.match(/.{1,4}/g)?.join(' ') || value;
+    e.target.value = value;
+});
+
+document.getElementById('validadeCartao')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 4) value = value.slice(0, 4);
+    if (value.length > 2) {
+        value = `${value.slice(0,2)}/${value.slice(2)}`;
+    }
+    e.target.value = value;
+});
+
+document.getElementById('cvvCartao')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 4) value = value.slice(0, 4);
+    e.target.value = value;
+});
+
+</script>
+</body>
+</html>
