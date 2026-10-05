@@ -1,0 +1,182 @@
+// This is your Prisma schema file
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── User ────────────────────────────────────────────────────
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  cpf       String?  @unique
+  role      String   @default("client") // "client" | "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders   Order[]
+  bookings Booking[]
+
+  @@map("users")
+}
+
+// ─── Category ────────────────────────────────────────────────
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+
+  products Product[]
+
+  @@map("categories")
+}
+
+// ─── Product ─────────────────────────────────────────────────
+model Product {
+  id            String  @id @default(cuid())
+  name          String
+  description   String?
+  type          String  // "flash" | "hourly" | "session" | "promotion"
+  status        String  @default("available") // "available" | "reserved" | "sold" | "unavailable"
+  price         Int     // em centavos
+  imageUrls     String  @default("[]") // JSON array de URLs
+  tags          String  @default("[]") // JSON array de strings
+  size          String?
+  bodyPart      String?
+  estimatedTime Int?    // em minutos
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderItems  OrderItem[]
+  bookings    Booking[]
+
+  @@map("products")
+}
+
+// ─── Order ───────────────────────────────────────────────────
+model Order {
+  id       String @id @default(cuid())
+  status   String @default("pending") // OrderStatus enum
+  subtotal Int    // em centavos
+  discount Int    @default(0)
+  total    Int    // em centavos
+  notes    String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  items   OrderItem[]
+  payment Payment?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String @id @default(cuid())
+  quantity   Int    @default(1)
+  unitPrice  Int    // snapshot do preço
+  totalPrice Int
+
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+// ─── Payment ─────────────────────────────────────────────────
+model Payment {
+  id             String  @id @default(cuid())
+  method         String  // "pix" | "credit_card" | "debit_card"
+  status         String  @default("pending") // PaymentStatus
+  amount         Int     // em centavos
+  gatewayOrderId String?
+  pixQrCode      String?
+  pixExpiration  String?
+  paidAt         DateTime?
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("payments")
+}
+
+// ─── TimeSlot ────────────────────────────────────────────────
+model TimeSlot {
+  id          String   @id @default(cuid())
+  date        String   // "YYYY-MM-DD"
+  startTime   String   // "HH:mm"
+  endTime     String   // "HH:mm"
+  isAvailable Boolean  @default(true)
+
+  booking Booking?
+
+  @@map("time_slots")
+}
+
+// ─── Booking ─────────────────────────────────────────────────
+model Booking {
+  id                  String   @id @default(cuid())
+  type                String   // "flash" | "hourly" | "session" | "quote"
+  status              String   @default("requested")
+  referenceImageUrls  String   @default("[]") // JSON array
+  bodyPart            String?
+  size                String?
+  clientNotes         String?
+  adminNotes          String?
+  depositPaid         Boolean  @default(false)
+  depositAmount       Int?     // em centavos
+  preferredDate       String?
+  preferredTime       String?
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id])
+  timeSlotId String?  @unique
+  timeSlot   TimeSlot? @relation(fields: [timeSlotId], references: [id])
+
+  quote BookingQuote?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bookings")
+}
+
+model BookingQuote {
+  id             String  @id @default(cuid())
+  estimatedHours Float
+  estimatedPrice Int     // em centavos
+  description    String
+  imageUrl       String?
+  isApproved     Boolean?
+  adminNotes     String?
+
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("booking_quotes")
+}
+
